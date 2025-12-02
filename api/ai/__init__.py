@@ -1,0 +1,1 @@
+# pacote ai - funções de insights e helpers

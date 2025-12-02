@@ -1,0 +1,13 @@
+fastapi
+uvicorn[standard]
+pydantic
+requests
+redis
+rq
+beautifulsoup4
+lxml
+python-dotenv
+sqlalchemy
+pandas
+numpy
+

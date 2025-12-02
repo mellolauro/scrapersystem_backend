@@ -1,0 +1,51 @@
+# ------------------------------------
+# Python
+# ------------------------------------
+# Arquivos de bytecode compilado
+__pycache__/
+*.pyc
+
+# Ambientes virtuais
+.venv/
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Logs e arquivos de dados temporários
+*.log
+*.tmp
+*.sqlite
+*.db
+
+# Arquivos de cache e insights gerados
+insights.py
+
+# ------------------------------------
+# Node.js / Next.js
+# ------------------------------------
+# Diretórios de módulos de dependência
+/nextjs-app/node_modules
+
+# Diretório de build do Next.js
+/nextjs-app/.next
+
+# ------------------------------------
+# IDE e Configurações de Usuário
+# ------------------------------------
+# Configurações do VS Code (opcional, mas comum para excluir)
+.vscode/
+
+# ------------------------------------
+# Docker
+# ------------------------------------
+# Build context
+.dockerignore
+
+# ------------------------------------
+# Outros
+# ------------------------------------
+# Arquivos que podem armazenar chaves ou senhas
+.env
+.env.*

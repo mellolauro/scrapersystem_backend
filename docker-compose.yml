@@ -1,0 +1,52 @@
+services:
+  api:
+    build:
+      context: .
+      dockerfile: api/Dockerfile
+    container_name: scraper_api
+    restart: always
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./api:/app/api
+    environment:
+      - PYTHONPATH=/app
+    depends_on:
+      - redis
+    networks:
+      - internal
+      - proxy
+
+  redis:
+    image: redis:7
+    container_name: redis_cache
+    restart: always
+    ports:
+      - "6379:6379"
+    networks:
+      - internal
+
+  caddy:
+    image: caddy:latest
+    container_name: caddy_reverse_proxy
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./api/Caddyfile:/etc/caddy/Caddyfile
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on:
+      - api
+    networks:
+      - internal
+      - proxy
+
+networks:
+  internal:
+  proxy:
+
+volumes:
+  caddy_data:
+  caddy_config:
