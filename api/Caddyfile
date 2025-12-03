@@ -1,3 +1,14 @@
 :80 {
     reverse_proxy api:8000
+
+    @cors {
+        method OPTIONS
+        path /
+    }
+
+    header {
+        Access-Control-Allow-Origin "http://localhost:3000"
+        Access-Control-Allow-Methods "GET, POST, OPTIONS"
+        Access-Control-Allow-Headers "*"
+    }
 }

@@ -1,12 +1,20 @@
+# server.py
 from fastapi import FastAPI
-from api.routers import health, search
+from fastapi.middleware.cors import CORSMiddleware
+from api.routers import search
 
-app = FastAPI(title="Scraper API", version="1.0.0")
+app = FastAPI()
 
-# Registrar rotas
-app.include_router(health.router, prefix="/health", tags=["Health"])
-app.include_router(search.router, prefix="/search", tags=["Search"])
+# Permitir o Next.js acessar o FastAPI
+origins = [
+    "http://localhost:3000",
+]
 
-@app.get("/")
-def root():
-    return {"message": "API online"}
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+app.include_router(search.router)

@@ -1,7 +1,11 @@
 import requests
 from bs4 import BeautifulSoup
 
-def google_search(query: str):
+def search_softwares(query: str):
+    """
+    Busca softwares relacionados no Google e extrai título, url,
+    empresa (se possível) e descrição básica.
+    """
     url = f"https://www.google.com/search?q={query.replace(' ', '+')}+software"
     headers = {"User-Agent": "Mozilla/5.0"}
 
@@ -13,26 +17,16 @@ def google_search(query: str):
     for g in soup.select(".tF2Cxc"):
         title = g.select_one(".DKV0Md")
         link = g.select_one("a")
+        snippet = g.select_one(".VwiC3b")
 
-        if title and link:
-            results.append({
-                "title": title.text,
-                "url": link["href"]
-            })
+        if not title or not link:
+            continue
+
+        results.append({
+            "name": title.text.strip(),
+            "description": snippet.text.strip() if snippet else "",
+            "company": "Desconhecido",
+            "url": link["href"]
+        })
 
     return results
-
-
-# 🚀 Função chamada pelo worker de fila
-def run_scraper_job(payload: dict):
-    query = payload.get("query") or payload.get("title")
-
-    if not query:
-        return {"error": "Nenhuma query foi enviada."}
-
-    results = google_search(query)
-    return {"query": query, "results": results}
-
-def run_scraper_job(data):
-    print("JOB RECEIVED:", data)
-    return {"ok": True}
