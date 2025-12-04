@@ -16,7 +16,7 @@ def calculate_system_score(
     adherence_breakdown: List[AdherenceDetail] = []
     
     # Pega a descrição do sistema em minúsculas para comparação
-    system_description_lower = system_data.get("description", "").lower()
+    system_description_lower = system_data.get("detailed_content", "").lower()
     
     for feature in adherence_matrix:
         feature_text = feature.description.lower()
